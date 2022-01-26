@@ -17,6 +17,11 @@ public class Main
 
         // Tara Misty
         // Tara Tara
-        
+        Cat ginger = new Cat("Ginger");
+
+        for (int i = ginger.getNumLives(); i >= 0; i--)
+        {
+            ginger.kill();
+        }
     }
 }
