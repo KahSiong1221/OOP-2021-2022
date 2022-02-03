@@ -65,9 +65,12 @@ public class BugZap extends PApplet
         {
             moveBug();
         }
+
+        text("Score: " + score, 20, 20);
 	}
 
     float playerSpeed = 15;
+    int score = 0;
 
     public void keyPressed()
     {
@@ -87,9 +90,21 @@ public class BugZap extends PApplet
         }
         if (key == ' ')
         {
-            strokeWeight(2);
-            stroke(0, 255, 255);
-            line(playerX, 0, playerX, playerY - 20);
+            float halfW = bugWidth / 2;
+            if (playerX > bugX - halfW && playerX < bugX + halfW)
+            {
+                score++;
+                resetBug();
+                strokeWeight(2);
+                stroke(0, 255, 255);
+                line(playerX, 0, playerX, playerY - 20);
+            }
+            else
+            {
+                strokeWeight(2);
+                stroke(0, 255, 255);
+                line(playerX, 0, playerX, playerY - 20);
+            }
         }
     }
 }
