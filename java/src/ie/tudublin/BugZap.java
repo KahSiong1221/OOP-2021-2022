@@ -22,7 +22,7 @@ public class BugZap extends PApplet
         playerWidth = 50;
 
         resetBug();
-        bugWidth = 15;
+        bugWidth = 20;
         bugHeight = 3 * bugWidth / 2;
 	}
 	
@@ -52,7 +52,7 @@ public class BugZap extends PApplet
 
     private void moveBug()
     {
-        bugY++;
+        bugY += 5;
         bugX = random(bugWidth / 2, width - bugWidth / 2);
     }
 
@@ -69,7 +69,7 @@ public class BugZap extends PApplet
         text("Score: " + score, 20, 20);
 	}
 
-    float playerSpeed = 15;
+    float playerSpeed = 20;
     int score = 0;
 
     public void keyPressed()
