@@ -6,8 +6,8 @@ public class Loops extends PApplet
 {
 
 	int mode = 0;
-	float rectX, rectY, rectX2;
-	int rectHue, size;
+	float shapeX, shapeY, shapeW, shapeH, shapeX2;
+	int shapeHue, size;
 
 	public void settings()
 	{
@@ -18,8 +18,8 @@ public class Loops extends PApplet
 		colorMode(HSB);
 		background(0);
 
-		rectY = 250;
-		rectX = 250;
+		shapeY = 250;
+		shapeX = 250;
 	}
 
 	public void keyPressed()
@@ -27,8 +27,8 @@ public class Loops extends PApplet
 		if (key >= '0' && key <='9')
 		{
 			mode = key - '0';
-			rectY = 250;
-			rectX = 250;
+			shapeX = 250;
+			shapeY = 250;
 		}
 		println(mode);
 	}
@@ -41,144 +41,189 @@ public class Loops extends PApplet
 		switch(mode)	
 		{
 			case 0:
-				if (mouseX >= rectX + 50)
+				shapeW = 100;
+				shapeH = 500;
+				// if mouse pointer cross the right border
+				if (mouseX >= shapeX + shapeW / 2)
 				{
-					rectX += 50;
+					shapeX += shapeW / 2;
 				}
-				else if (mouseX <= rectX - 50)
+				// if mouse pointer cross the left border
+				else if (mouseX <= shapeX - shapeW / 2)
 				{
-					rectX -= 50;
+					shapeX -= shapeW / 2;
 				}
+				// draw rectangle
 				noStroke();
 				fill(128,255,255);
 				rectMode(CENTER);
-				rect(rectX, rectY, 100, 500);
+				rect(shapeX, shapeY, shapeW, shapeH);
 				break;
 			case 1:
-				if (mouseX >= rectX + 50)
+				shapeW = 100;
+				shapeH = 100;
+				// if mouse pointer cross the right border
+				if (mouseX >= shapeX + shapeW / 2)
 				{
-					rectX += 50;
+					shapeX += shapeW / 2;
 				}
-				else if (mouseX <= rectX - 50)
+				// if mouse pointer cross the left border
+				else if (mouseX <= shapeX - shapeW / 2)
 				{
-					rectX -= 50;
+					shapeX -= shapeW / 2;
 				}
-				else if (mouseY >= rectY + 50)
+				// if mouse pointer cross the down border
+				else if (mouseY >= shapeY + shapeH / 2)
 				{
-					rectY += 50;
+					shapeY += shapeH / 2;
 				}
-				else if (mouseY <= rectY - 50)
+				// if mouse pointer cross the top border
+				else if (mouseY <= shapeY - shapeH / 2)
 				{
-					rectY -= 50;
+					shapeY -= shapeH / 2;
 				}
-				
+				// draw square
 				noStroke();
 				fill(128,255,255);
 				rectMode(CENTER);
-				rect(rectX, rectY, 100, 100);
+				rect(shapeX, shapeY, shapeW, shapeH);
 				break;
 			case 2:
 				noStroke();
+				shapeW = 200;
+				shapeH = 100;
 				
-				if (mouseX >= rectX + 100 || mouseX <= rectX - 100 || mouseY >= rectY + 50 || mouseY <= rectY - 50)
+				// if the mouse pointer outside the shape
+				if (mouseX >= shapeX + shapeW / 2 || mouseX <= shapeX - shapeW / 2 || mouseY >= shapeY + shapeH / 2 || mouseY <= shapeY - shapeH / 2)
 				{
+					// draw ryan colour shape
 					fill(128, 255, 255);
 					rectMode(CENTER);
-					rect(rectX, rectY, 200, 100);
+					rect(shapeX, shapeY, shapeW, shapeH);
 				}
 				else
 				{
+					// draw red colour shape
 					fill(0, 255, 255);
 					rectMode(CENTER);
-					rect(rectX, rectY, 200, 100);
+					rect(shapeX, shapeY, shapeW, shapeH);
 				}
-
 				break;
 			case 3:
 				noStroke();
-				rectHue = 0;
-				rectX = 0;
-				while (rectX < 500)
+				rectMode(CORNER);
+				shapeHue = 0;
+				shapeX = shapeY = 0;
+				shapeW = 50;
+				shapeH = 500;
+				// while shape x coordinator within the border
+				while (shapeX < width)
 				{
-					fill(rectHue, 255, 255);
-					rect(rectX + 25, 250, 50, 500);
-					rectHue += 18;
-					rectX += 50;
+					// draw shape
+					fill(shapeHue, 255, 255);
+					rect(shapeX, shapeY, shapeW, shapeH);
+					// increment of shape x and hue
+					shapeHue += 18;
+					shapeX += 50;
 				}
 				break;
 			case 4:
 				noStroke();
-				rectHue = 0;
-				rectX = 0;
-				rectY = 0;
-				while (rectX < 500)
+				rectMode(CORNER);
+				shapeHue = 0;
+				shapeX = shapeY = 0;
+				shapeW = shapeH = 50;
+				// while shape x coordinator within the border
+				while (shapeX < width)
 				{
-					fill(rectHue, 255, 255);
-					rect(rectX + 25, rectY + 25, 50, 50);
-					rectHue += 25;
-					rectX += 50;
-					rectY += 50;
+					// draw shape
+					fill(shapeHue, 255, 255);
+					rect(shapeX, shapeY, shapeW, shapeH);
+					// increment of shape x, y and hue
+					shapeHue += 25;
+					shapeX += shapeW;
+					shapeY += shapeH;
 				}
 				break;
 			case 5:
 				noStroke();
-				rectHue = 0;
-				rectX = 0;
-				rectY = 0;
-				rectX2 = 500;
-				while (rectX < 500)
+				rectMode(CORNER);
+				shapeHue = 0;
+				shapeX = shapeY = 0;
+				shapeW = shapeH = 50;
+				shapeX2 = 500;
+				// while shape x coordinator within the border
+				while (shapeX < width)
 				{
-					fill(rectHue, 255, 255);
-					rect(rectX + 25, rectY + 25, 50, 50);
-					rect(rectX2 - 25, rectY + 25, 50, 50);
-					rectHue += 25;
-					rectX += 50;
-					rectX2 -= 50;
-					rectY += 50;
+					// draw shape
+					fill(shapeHue, 255, 255);
+					rect(shapeX, shapeY, shapeW, shapeH);
+					rect(shapeX2 - shapeW, shapeY, shapeW, shapeH);
+					// increment of shape x, y and hue; decrement of shape x2
+					shapeHue += 25;
+					shapeX += shapeW;
+					shapeX2 -= shapeW;
+					shapeY += shapeH;
 				}
 				break;
 			case 6:
 				noStroke();
-				rectHue = 200;
-				for (size = 500; size >= 0; size -= 50)
+				ellipseMode(CENTER);
+				shapeHue = 200;
+				for (size = width; size >= 0; size -= 50)
 				{
-					fill(rectHue, 255, 255);
-					ellipse(250, 250, size, size);
-					rectHue -= 18;
+					// draw circle
+					fill(shapeHue, 255, 255);
+					circle(width / 2, height / 2, size);
+					// decrement of hue
+					shapeHue -= 18;
 				}
 				break;
 			case 7:
 				noStroke();
-				rectHue = 0;
-				rectX = 0;
+				ellipseMode(CORNER);
+				shapeHue = 0;
+				shapeY = 0;
 				size = 50;
-				while (rectX < 500)
+				// horizontal
+				for (int i = 0; i < 10; i++)
 				{
-					fill(rectHue, 255, 255);
-					ellipse(rectX + 25, 25, size, size);
-					rectHue += 18;
-					rectX += 50;
+					shapeX = 0;
+					// increment of starting hue of each line
+					shapeHue = 0 + 10 * i;
+					// vertical
+					for (int j = 0; j < 10; j++)
+					{
+						// draw circle
+						fill(shapeHue, 255, 255);
+						circle(shapeX, shapeY, size);
+						// increment of hue and shape x
+						shapeHue += 10;
+						shapeX += size;
+					}
+					// increment of shape y
+					shapeY += size;
 				}
 				break;
 			case 8:
-				noStroke();
-				rectHue = 0;
-				rectX = 0;
-				rectY = 0;
-				size = 50;
-				for (int i = 0; i < 10; i++)
+				textAlign(CENTER);
+				textSize(10);
+				int gap = 42;
+				int mark = gap;
+				for (int num = -5; num < 6; num++)
 				{
-					rectX = 0;
+					fill(0, 0, 255);
+					// vertical text
+					text(str(num), mark, gap / 2);
+					// horizontal text
+					text(str(num), gap / 2, mark);
 					
-					for (int j = 0; j < 10; j++)
-					{
-						fill(rectHue, 255, 255);
-						ellipse(rectX + 25, rectY + 25, size, size);
-						rectX += 50;
-						rectHue += 10;
-					}
-
-					rectY += 50;
+					fill(45, 255, 255);
+					// horizontal line
+					line(mark, gap, mark, gap * 10);
+					// vertical line
+					line(gap, mark, gap * 10, mark);
+					mark += gap;
 				}
 				break;
 		}
