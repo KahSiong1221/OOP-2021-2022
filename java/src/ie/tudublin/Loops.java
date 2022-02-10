@@ -116,6 +116,18 @@ public class Loops extends PApplet
 				shapeX = shapeY = 0;
 				shapeW = 50;
 				shapeH = 500;
+
+				/*
+				sample argument: 150, 100, 200, 2000, 4000
+				float magicMap(float i, float startIndex, float endIndex, float start, float end)
+				{
+					// relative position: 2
+					float relativePosition = (endIndex - startIndex) / (startIndex - i);
+					// return 3000
+					return (start + end) / relativePosition;
+				}
+				*/
+				
 				// while shape x coordinator within the border
 				while (shapeX < width)
 				{
