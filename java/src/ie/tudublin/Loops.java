@@ -207,7 +207,7 @@ public class Loops extends PApplet
 				break;
 			case 8:
 				textAlign(CENTER);
-				textSize(10);
+				textSize(15);
 				int gap = 42;
 				int mark = gap;
 				for (int num = -5; num < 6; num++)
@@ -217,13 +217,46 @@ public class Loops extends PApplet
 					text(str(num), mark, gap / 2);
 					// horizontal text
 					text(str(num), gap / 2, mark);
-					
-					fill(45, 255, 255);
+
+					stroke(85, 255, 255);
 					// horizontal line
-					line(mark, gap, mark, gap * 10);
+					line(mark, gap, mark, gap * 11);
 					// vertical line
-					line(gap, mark, gap * 10, mark);
+					line(gap, mark, gap * 11, mark);
+					
 					mark += gap;
+				}
+				break;
+			case 9:
+				noStroke();
+				rectMode(CORNER);
+				shapeX = shapeY = 0;
+				shapeW = shapeH = 25;
+				// horizontal
+				for (int i = 1; i < 21; i++)
+				{
+					shapeX = 0;
+					// vertical
+					for (int j = 1; j < 21; j++)
+					{
+						// if index i and j are both even or odd
+						if (i % 2 == j % 2)
+						{
+							shapeHue = 149;
+						}
+						// if one index is odd, one index is even, vice versa
+						else
+						{
+							shapeHue = 170;
+						}
+						// draw square
+						fill(shapeHue, 255, 255);
+						rect(shapeX, shapeY, shapeW, shapeH);
+						// increment of hue and shape x
+						shapeX += shapeW;
+					}
+					// increment of shape y
+					shapeY += shapeH;
 				}
 				break;
 		}
