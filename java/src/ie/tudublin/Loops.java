@@ -1,13 +1,23 @@
+/*
+float map(value, min1, max1, min2, max2)
+{
+	float relativePos = value - min1;
+	float range1 = max1 - min1;
+	float range2 = max2 - min2;
+	return min2 + (relativePos / range1 * range2);
+}
+*/
+
 package ie.tudublin;
 
 import processing.core.PApplet;
 
 public class Loops extends PApplet
 {
-
 	int mode = 0;
-	float shapeX, shapeY, shapeW, shapeH, shapeX2;
-	int shapeHue, size;
+	float rectX = 0;
+	float squareX = 0;
+	float squareY = 0;
 
 	public void settings()
 	{
@@ -16,10 +26,6 @@ public class Loops extends PApplet
 
 	public void setup() {
 		colorMode(HSB);
-		background(0);
-
-		shapeY = 250;
-		shapeX = 250;
 	}
 
 	public void keyPressed()
@@ -27,8 +33,6 @@ public class Loops extends PApplet
 		if (key >= '0' && key <='9')
 		{
 			mode = key - '0';
-			shapeX = 250;
-			shapeY = 250;
 		}
 		println(mode);
 	}
@@ -41,104 +45,88 @@ public class Loops extends PApplet
 		switch(mode)	
 		{
 			case 0:
-				shapeW = 100;
-				shapeH = 500;
+			{
+				float rectW = width / 5;
 				// if mouse pointer cross the right border
-				if (mouseX >= shapeX + shapeW / 2)
+				if (mouseX >= rectX + rectW)
 				{
-					shapeX += shapeW / 2;
+					rectX += rectW;
 				}
 				// if mouse pointer cross the left border
-				else if (mouseX <= shapeX - shapeW / 2)
+				else if (mouseX <= rectX)
 				{
-					shapeX -= shapeW / 2;
+					rectX -= rectW;
 				}
 				// draw rectangle
 				noStroke();
-				fill(128,255,255);
-				rectMode(CENTER);
-				rect(shapeX, shapeY, shapeW, shapeH);
+				fill(map(1, 0, 2, 0, 255), 255, 255);
+				rectMode(CORNER);
+				rect(rectX, 0, rectW, height);
 				break;
+			}
 			case 1:
-				shapeW = 100;
-				shapeH = 100;
+				float squareW = width / 5;
 				// if mouse pointer cross the right border
-				if (mouseX >= shapeX + shapeW / 2)
+				if (mouseX >= squareX + squareW)
 				{
-					shapeX += shapeW / 2;
+					squareX += squareW;
 				}
 				// if mouse pointer cross the left border
-				else if (mouseX <= shapeX - shapeW / 2)
+				else if (mouseX <= squareX)
 				{
-					shapeX -= shapeW / 2;
+					squareX -= squareW;
 				}
 				// if mouse pointer cross the down border
-				else if (mouseY >= shapeY + shapeH / 2)
+				else if (mouseY >= squareY + squareW)
 				{
-					shapeY += shapeH / 2;
+					squareY += squareW;
 				}
 				// if mouse pointer cross the top border
-				else if (mouseY <= shapeY - shapeH / 2)
+				else if (mouseY <= squareY)
 				{
-					shapeY -= shapeH / 2;
+					squareY -= squareW;
 				}
 				// draw square
 				noStroke();
-				fill(128,255,255);
-				rectMode(CENTER);
-				rect(shapeX, shapeY, shapeW, shapeH);
+				fill(map(1, 0, 2, 0, 255), 255, 255);
+				rectMode(CORNER);
+				square(squareX, squareY, squareW);
 				break;
 			case 2:
-				noStroke();
-				shapeW = 200;
-				shapeH = 100;
+			{
+				rectX = width / 2;
+				float rectW = 2 * width / 5;
+				float rectH = height / 5;
 				
 				// if the mouse pointer outside the shape
-				if (mouseX >= shapeX + shapeW / 2 || mouseX <= shapeX - shapeW / 2 || mouseY >= shapeY + shapeH / 2 || mouseY <= shapeY - shapeH / 2)
+				if (mouseX >= rectX + (rectW / 2) || mouseX <= rectX - (rectW / 2) || mouseY >= rectX + (rectH / 2) || mouseY <= rectX - (rectH / 2))
 				{
 					// draw ryan colour shape
-					fill(128, 255, 255);
-					rectMode(CENTER);
-					rect(shapeX, shapeY, shapeW, shapeH);
+					fill(map(1, 0, 2, 0, 255), 255, 255);				
 				}
 				else
 				{
 					// draw red colour shape
 					fill(0, 255, 255);
-					rectMode(CENTER);
-					rect(shapeX, shapeY, shapeW, shapeH);
 				}
+				noStroke();
+				rectMode(CENTER);
+				rect(rectX, rectX, rectW, rectH);
 				break;
+			}
 			case 3:
 				noStroke();
 				rectMode(CORNER);
-				shapeHue = 0;
-				shapeX = shapeY = 0;
-				shapeW = 50;
-				shapeH = 500;
-
-				/*
-				sample argument: 150, 100, 200, 2000, 4000
-				float magicMap(float i, float startIndex, float endIndex, float start, float end)
-				{
-					// relative position: 2
-					float relativePosition = (endIndex - startIndex) / (startIndex - i);
-					// return 3000
-					return (start + end) / relativePosition;
-				}
-				*/
+				int bars = mouseX / 5;
+				float barW = width / (float)bars;
 				
-				// while shape x coordinator within the border
-				while (shapeX < width)
+				for (int i = 0; i < bars; i++)
 				{
-					// draw shape
-					fill(shapeHue, 255, 255);
-					rect(shapeX, shapeY, shapeW, shapeH);
-					// increment of shape x and hue
-					shapeHue += 18;
-					shapeX += 50;
+					fill(map(i, 0, bars, 0, 255), 255, 255);
+					rect(map(i, 0, bars, 0, width), 0, barW, height);
 				}
 				break;
+				/*
 			case 4:
 				noStroke();
 				rectMode(CORNER);
@@ -276,6 +264,7 @@ public class Loops extends PApplet
 				line(250, 250, 250, 50);
 				line(250, 250, 250 * sin(50), 50  * sin(50));
 				break;
+			*/
 		}
 	}
 }
