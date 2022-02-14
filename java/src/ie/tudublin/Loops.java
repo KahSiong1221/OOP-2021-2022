@@ -270,6 +270,11 @@ public class Loops extends PApplet
 					// increment of shape y
 					shapeY += shapeH;
 				}
+
+				fill(0,0,255);
+				stroke(0,0,255);
+				line(250, 250, 250, 50);
+				line(250, 250, 250 * sin(50), 50  * sin(50));
 				break;
 		}
 	}
