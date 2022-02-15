@@ -38,6 +38,34 @@ public class Loops extends PApplet
 		println(mode);
 	}
 
+	public void polygon(float x, float y, float radius, int npoints)
+	{
+		float angle = TWO_PI / npoints;
+		beginShape();
+		for (float a = 0; a < TWO_PI; a += angle)
+		{
+			float sx = x + cos(a) * radius;
+			float sy = y + sin(a) * radius;
+			vertex(sx, sy);
+		}
+		endShape(CLOSE);
+	}
+
+	public void star(float x, float y, float radius1, float radius2, int npoints)
+	{
+		float angle = TWO_PI / npoints;
+		beginShape();
+		for (float a = 0; a < TWO_PI; a += angle)
+		{
+			float sx = x + cos(a) * radius2;
+			float sy = y + sin(a) * radius2;
+			vertex(sx, sy);
+			sx = x + cos(a + angle / 2) * radius1;
+			sy = y + sin(a + angle / 2) * radius1;
+			vertex(sx, sy);
+		}
+		endShape(CLOSE);
+	}
 	
 	public void draw()
 	{
@@ -253,18 +281,40 @@ public class Loops extends PApplet
 			}
 			case 9:
 			{
-				stroke(0);
-				background(255);
-				int sides = mouseX / 10;
-				float angle = TWO_PI / (float)sides;
-				float radius = 200;
-				
-				for (int i = 1; i <= sides; i++)
+				if (mouseY <= height / 3)
 				{
-					float x2 = radius * sin(angle * i);
-					float y2 = radius * cos(angle * i);
-					line(width / 2, height / 2, width / 2 + x2, height / 2 + y2);
+					stroke(0);
+					background(255);
+					int sides = mouseX / 10;
+					float angle = TWO_PI / (float)sides;
+					float radius = 200;
+					
+					for (int i = 1; i <= sides; i++)
+					{
+						float x2 = radius * sin(angle * i);
+						float y2 = radius * cos(angle * i);
+						line(width / 2, height / 2, width / 2 + x2, height / 2 + y2);
+					}
 				}
+				else if (mouseY >= 2 * height / 3)
+				{
+					noFill();
+					stroke(0);
+					background(255);
+					int points = mouseX / 20;
+					float radius = 200;
+					star(width / 2, height / 2, radius - map(mouseX, 0, width, radius, 0), radius, points);
+				}
+				else
+				{
+					noFill();
+					stroke(255);
+					background(0);
+					int points = mouseX / 20;
+					float radius = 200;
+					polygon(width / 2, height / 2, radius, points);
+				}
+				
 				break;
 			}
 		}
