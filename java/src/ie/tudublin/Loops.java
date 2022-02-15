@@ -18,6 +18,7 @@ public class Loops extends PApplet
 	float rectX = 0;
 	float squareX = 0;
 	float squareY = 0;
+	float offset = 0;
 
 	public void settings()
 	{
@@ -65,6 +66,7 @@ public class Loops extends PApplet
 				break;
 			}
 			case 1:
+			{
 				float squareW = width / 5;
 				// if mouse pointer cross the right border
 				if (mouseX >= squareX + squareW)
@@ -92,6 +94,7 @@ public class Loops extends PApplet
 				rectMode(CORNER);
 				square(squareX, squareY, squareW);
 				break;
+			}
 			case 2:
 			{
 				rectX = width / 2;
@@ -115,6 +118,7 @@ public class Loops extends PApplet
 				break;
 			}
 			case 3:
+			{
 				noStroke();
 				rectMode(CORNER);
 				int bars = mouseX / 5;
@@ -126,145 +130,127 @@ public class Loops extends PApplet
 					rect(map(i, 0, bars, 0, width), 0, barW, height);
 				}
 				break;
-				/*
+			}
 			case 4:
+			{
 				noStroke();
 				rectMode(CORNER);
-				shapeHue = 0;
-				shapeX = shapeY = 0;
-				shapeW = shapeH = 50;
-				// while shape x coordinator within the border
-				while (shapeX < width)
+				int squares = mouseX / 10;
+				float squareW = width / (float)squares;
+
+				for (int i = 0; i < squares; i++) 
 				{
-					// draw shape
-					fill(shapeHue, 255, 255);
-					rect(shapeX, shapeY, shapeW, shapeH);
-					// increment of shape x, y and hue
-					shapeHue += 25;
-					shapeX += shapeW;
-					shapeY += shapeH;
+					fill(map(i, 0, squares, 0, 255), 255, 255);
+					squareX = map(i, 0, squares, 0, width);
+					square(squareX, squareX, squareW);
+					square((width - squareW) - squareX, squareX, squareW);
 				}
 				break;
+			}
 			case 5:
-				noStroke();
-				rectMode(CORNER);
-				shapeHue = 0;
-				shapeX = shapeY = 0;
-				shapeW = shapeH = 50;
-				shapeX2 = 500;
-				// while shape x coordinator within the border
-				while (shapeX < width)
-				{
-					// draw shape
-					fill(shapeHue, 255, 255);
-					rect(shapeX, shapeY, shapeW, shapeH);
-					rect(shapeX2 - shapeW, shapeY, shapeW, shapeH);
-					// increment of shape x, y and hue; decrement of shape x2
-					shapeHue += 25;
-					shapeX += shapeW;
-					shapeX2 -= shapeW;
-					shapeY += shapeH;
-				}
-				break;
-			case 6:
+			{
 				noStroke();
 				ellipseMode(CENTER);
-				shapeHue = 200;
-				for (size = width; size >= 0; size -= 50)
+				int circles = mouseX / 5;
+				offset += mouseY / 500.0f;
+
+				for (int i = circles; i > 0; i--)
 				{
 					// draw circle
-					fill(shapeHue, 255, 255);
-					circle(width / 2, height / 2, size);
-					// decrement of hue
-					shapeHue -= 18;
+					fill(map(i + offset, 0, circles, 0, 255) % 256, 255, 255);
+					circle(width / 2, height / 2, map(i, 0, circles, 0, width));
 				}
 				break;
-			case 7:
+			}
+			case 6:
+			{
+				background(255);
 				noStroke();
 				ellipseMode(CORNER);
-				shapeHue = 0;
-				shapeY = 0;
-				size = 50;
-				// horizontal
-				for (int i = 0; i < 10; i++)
+				int circles = mouseX / 20;
+				// diameter of circle
+				float circleD = width / (float)circles;
+				offset += mouseY / 500.0f;
+
+				for (int i = 0; i < circles; i++)
 				{
-					shapeX = 0;
-					// increment of starting hue of each line
-					shapeHue = 0 + 10 * i;
-					// vertical
-					for (int j = 0; j < 10; j++)
+					for (int j = 0; j < circles; j++)
 					{
-						// draw circle
-						fill(shapeHue, 255, 255);
-						circle(shapeX, shapeY, size);
-						// increment of hue and shape x
-						shapeHue += 10;
-						shapeX += size;
+						float circleHue = map(i + j + offset, 0, circles * 2, 0, 255) % 256;
+						fill(circleHue, 255, 255);
+						float circleX = map(i, 0, circles, 0, width);
+						float circleY = map(j, 0, circles, 0, width);
+						circle(circleX, circleY, circleD);
 					}
-					// increment of shape y
-					shapeY += size;
 				}
 				break;
-			case 8:
+			}
+			case 7:
+			{
 				textAlign(CENTER);
 				textSize(15);
-				int gap = 42;
-				int mark = gap;
-				for (int num = -5; num < 6; num++)
+				int lines = mouseX / 20;
+				float gap = width / (float)(lines + 1);
+
+				for (int i = 0; i < lines; i++)
 				{
+					float lineX = map(i, 0, lines - 1, gap, width - gap);
+					float num;
+					if (lines % 2 == 0)
+					{
+						num = map(i, 0, lines - 1, 1 - lines / 2, lines / 2);
+					}
+					else
+					{
+						num = map(i, 0, lines - 1, 0 - lines / 2, lines / 2);
+					}
+
 					fill(0, 0, 255);
 					// vertical text
-					text(str(num), mark, gap / 2);
+					text((int)num, lineX, gap / 2);
 					// horizontal text
-					text(str(num), gap / 2, mark);
+					text((int)num, gap / 2, lineX);
 
 					stroke(85, 255, 255);
 					// horizontal line
-					line(mark, gap, mark, gap * 11);
+					line(lineX, gap, lineX, height - gap);
 					// vertical line
-					line(gap, mark, gap * 11, mark);
-					
-					mark += gap;
+					line(gap, lineX, width - gap, lineX);
 				}
 				break;
-			case 9:
+			}
+			case 8:
+			{
 				noStroke();
 				rectMode(CORNER);
-				shapeX = shapeY = 0;
-				shapeW = shapeH = 25;
+				int squares = mouseX / 10;
+				float squareW = width / (float)squares;
+				float squareHue;
 				// horizontal
-				for (int i = 1; i < 21; i++)
+				for (int i = 0; i < squares; i++)
 				{
-					shapeX = 0;
 					// vertical
-					for (int j = 1; j < 21; j++)
+					for (int j = 0; j < squares; j++)
 					{
 						// if index i and j are both even or odd
 						if (i % 2 == j % 2)
 						{
-							shapeHue = 149;
+							squareHue = map(mouseY, 0, height, 0, 255);
 						}
-						// if one index is odd, one index is even, vice versa
 						else
 						{
-							shapeHue = 170;
+							squareHue = (map(mouseY, 0, height, 0, 255) + 25) % 256;
 						}
-						// draw square
-						fill(shapeHue, 255, 255);
-						rect(shapeX, shapeY, shapeW, shapeH);
-						// increment of hue and shape x
-						shapeX += shapeW;
-					}
-					// increment of shape y
-					shapeY += shapeH;
-				}
 
-				fill(0,0,255);
-				stroke(0,0,255);
-				line(250, 250, 250, 50);
-				line(250, 250, 250 * sin(50), 50  * sin(50));
+						squareX = map(i, 0, squares, 0, width);
+						squareY = map(j, 0, squares, 0, width);
+						// draw square
+						fill(squareHue, 255, 255);
+						square(squareX, squareY, squareW);
+					}
+				}
 				break;
-			*/
+			}
 		}
 	}
 }
