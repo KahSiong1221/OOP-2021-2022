@@ -255,9 +255,17 @@ public class Loops extends PApplet
 			{
 				stroke(0);
 				background(255);
-				fill(0, 0, 255);
-				line(width / 2, height / 2, width / 2, 50);
+				int sides = mouseX / 10;
+				float angle = TWO_PI / (float)sides;
+				float radius = 200;
 				
+				for (int i = 1; i <= sides; i++)
+				{
+					float x2 = radius * sin(angle * i);
+					float y2 = radius * cos(angle * i);
+					line(width / 2, height / 2, width / 2 + x2, height / 2 + y2);
+				}
+				break;
 			}
 		}
 	}
