@@ -7,18 +7,18 @@ public class Life extends PApplet {
 	LifeBoard board;
 
 	public void settings() {
-		size(500, 500);
-		board = new LifeBoard(100, this);
+		size(1000, 1000);
+		board = new LifeBoard(200, this);
 		board.randomise();
 	}
 
 	public void setup() {
-		noStroke();
 		colorMode(RGB);
 	}
 
 	
 	public void draw() {
 		board.render();
+		board.update();
 	}
 }
