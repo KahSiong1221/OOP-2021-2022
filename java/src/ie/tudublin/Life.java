@@ -13,8 +13,8 @@ public class Life extends PApplet {
 	}
 
 	public void setup() {
+		noStroke();
 		colorMode(RGB);
-
 	}
 
 	
