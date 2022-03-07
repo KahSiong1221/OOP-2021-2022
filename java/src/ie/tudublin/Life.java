@@ -13,7 +13,7 @@ public class Life extends PApplet {
 	}
 
 	public void setup() {
-		colorMode(HSB);
+		colorMode(RGB);
 
 	}
 
