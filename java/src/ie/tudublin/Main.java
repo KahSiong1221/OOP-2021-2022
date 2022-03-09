@@ -64,7 +64,7 @@ public class Main
     }
     public static void main(String[] args)
     {
-        life();
+        arrays();
 
         // Tara Misty
         // Tara Tara

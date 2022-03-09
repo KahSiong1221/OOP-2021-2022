@@ -9,11 +9,10 @@ public class Arrays extends PApplet {
 
     String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
-    float[] a1 = new float[100];
-    float[] a2;
-
+    //float[] a1 = new float[100];
+    //float[] a2;
     int minIndex = 0;
-    int maxIndex  = 0;
+    int maxIndex = 0;
 
     int mode = 0;
 
@@ -32,28 +31,32 @@ public class Arrays extends PApplet {
 
     public void setup()
     {
-        for(int i = 0 ; i < rainfall.length ; i ++)
+        background(0);
+        colorMode(HSB);
+
+        for (int i = 0; i < rainfall.length; i++)
         {
             println(rainfall[i] + "\t" + months[i]);
         }
-        for(float r:rainfall)
+
+        for (float r:rainfall)
         {
             println(r);
         }
         
         int j = 0;
-        for(float r:rainfall)
+        for (float r:rainfall)
         {
             println(r + "\t" + months[j]);
-            j ++;
+            j++;
         }
 
-        for(int i = rainfall.length - 1; i >= 0 ; i -- )
+        for (int i = rainfall.length - 1; i >= 0; i--)
         {
             println(rainfall[i] + "\t" + months[i]);
         }
 
-        for(int i = 1 ; i < rainfall.length ; i ++)
+        for(int i = 1; i < rainfall.length; i++)
         {
             if (rainfall[i] < rainfall[minIndex])
             {
@@ -67,63 +70,126 @@ public class Arrays extends PApplet {
 
         println("Max rainfall: " + rainfall[maxIndex] + " in month " + months[maxIndex]);
         println("Min rainfall: " + rainfall[minIndex] + " in month " + months[minIndex]);
-
     }
 
     public void draw()
     {
-        switch (mode) {
+        switch (mode) 
+        {
+            // bar chart
 			case 0:
             {
                 background(0);
-                colorMode(HSB);
-                float w = width / (float)rainfall.length;
                 noStroke();
-                for(int i = 0 ; i < rainfall.length ; i ++)
+
+                float barWidth = width / (float)rainfall.length;
+
+                for (int i = 0; i < rainfall.length; i++)
                 {
-                    float x = map(i, 0, rainfall.length, 0, width);
-                    int c = (int)map(i, 0, rainfall.length, 0, 255);
-                    fill(c, 255, 255);
-                    float h = map(rainfall[i], 0, rainfall[maxIndex], 0, -height);
-                    rect(x, height, w, h);
+                    float barX = map(i, 0, rainfall.length, 0, width);
+                    int barColour = (int)map(i, 0, rainfall.length, 0, 255);
+                    float barHeight = map(rainfall[i], 0, rainfall[maxIndex], 0, -height);
+
+                    fill(barColour, 255, 255);
+                    rect(barX, height, barWidth, barHeight);
+
                     fill(255);
                     textAlign(CENTER, CENTER);
-                    text(months[i], x + (w / 2), height - 50);
+                    text(months[i], barX + (barWidth / 2), height - 50);
                 }
+
                 break;
             }
             case 1:
             {
                 background(0);
-                float border = width * 0.1f;
-                // Draw the axis
                 stroke(255);
+
+                float border = width * 0.1f;
+
+                // axis
+                fill(255);
                 line(border, border, border, height - border);
-                line(border, height - border, width - border, height - border);
-                for(int i = 0 ; i <= 120; i += 10)
+                line(border, height - border, height - border, height - border);
+
+                textAlign(CENTER, CENTER);
+                for (int i = 0; i <= 120; i += 10)
                 {
-                    float y = map(i, 0, 120, height - border, border);
-                    line(border - 5, y, border, y);
-                    fill(255);
-                    textAlign(CENTER, CENTER);
-                    text(i, border / 2, y);
+                    float markY = map(i, 0, 120, height - border, border);
+                    
+                    text(i, border / 2, markY);
+                    line(border - border / 5, markY, border, markY);
                 }
-                float w = (width - (border * 2.0f)) / (float)rainfall.length;
-                
-                for(int i = 0 ; i < rainfall.length; i ++)
+
+                // title
+                text("Rainfall Bar Chart", width / 2, border / 2);
+
+                // bar and month
+                float barWidth = (width - 2 * border) / (float)rainfall.length;
+
+                for (int i = 0; i < rainfall.length; i++)
                 {
-                    float x = map(i, 0, rainfall.length, border, width-border);
-                    float c = map(i, 0, rainfall.length, 0, 255);
-                    stroke(255);
-                    fill(c, 255, 255);
-                    float h = map(rainfall[i], 0, 120, 0, -height + (border * 2.0f)); 
-                    rect(x, height-border, w, h);
+                    float barX = map(i, 0, rainfall.length, border, width - border);
+                    float barHeight = map(rainfall[i], 0, rainfall[maxIndex], 0, -(height - 2 * border));
+                    float barColour = map(i, 0, rainfall.length, 0, 255);
+
+                    fill(barColour, 255, 255);
+                    rect(barX, height - border, barWidth, barHeight);
+
                     fill(255);
-                    text(months[i], x + (w / 2), height - (border / 2));
-    
+                    text(months[i], barX + barWidth / 2, height - border / 2);
                 }
+
                 break;
             }
+            case 2:
+            {
+                background(0);
+                stroke(255);
+
+                float border = width * 0.1f;
+
+                // axis
+                fill(255);
+                line(border, border, border, height - border);
+                line(border, height - border, height - border, height - border);
+
+                textAlign(CENTER, CENTER);
+                for (int i = 0; i <= 120; i += 10)
+                {
+                    float markY = map(i, 0, 120, height - border, border);
+                    
+                    text(i, border / 2, markY);
+                    line(border - border / 5, markY, border, markY);
+                }
+
+                // title
+                text("Rainfall Trend Chart", width / 2, border / 2);
+
+                // trend line and month
+                float gap = (width - 2 * border) / (float)rainfall.length;
+                float startX = border + gap / 2;
+                float startY = map(rainfall[0], 0, 120, height - border, border);
+
+                text(months[0], startX, height - border / 2);
+                
+                for (int i = 1; i < rainfall.length; i++)
+                {
+                    fill(255);
+                    float endX = map(i, 0, rainfall.length - 1, border + (gap / 2), width - border - (gap / 2));
+                    float endY = map(rainfall[i], 0, 120, height - border, border);
+                    line(startX, startY, endX, endY);
+
+                    fill(255);
+                    text(months[i], endX, height - border / 2);
+
+                    startX = endX;
+                    startY = endY;
+                }
+
+                break;
+            }
+            /*
             case 2:
                 background(0);
                 float r = mouseX;
@@ -155,7 +221,8 @@ public class Arrays extends PApplet {
                     
                 }
 
-                break;
-            }        
-    }    
+                break;  
+            */   
+        }  
+    }  
 }
