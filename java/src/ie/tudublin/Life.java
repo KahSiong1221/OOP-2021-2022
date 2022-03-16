@@ -17,8 +17,6 @@ public class Life extends PApplet {
 	}
 
 
-	LifeBoard board;
-
 	public void settings() {
 		size(1000, 1000);
 		board = new LifeBoard(200, this);
@@ -28,6 +26,7 @@ public class Life extends PApplet {
 
 	public void setup() {
 		colorMode(RGB);
+
 	}
 	
 	public void draw() {
