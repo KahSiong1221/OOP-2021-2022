@@ -13,6 +13,7 @@ public class Arrays extends PApplet {
     //float[] a2;
     int minIndex = 0;
     int maxIndex = 0;
+    float sum;
 
     int mode = 0;
 
@@ -37,6 +38,8 @@ public class Arrays extends PApplet {
         for (int i = 0; i < rainfall.length; i++)
         {
             println(rainfall[i] + "\t" + months[i]);
+
+            sum += rainfall[i];
         }
 
         for (float r:rainfall)
@@ -186,6 +189,38 @@ public class Arrays extends PApplet {
                     startX = endX;
                     startY = endY;
                 }
+
+                break;
+            }
+            case 3:
+            {
+                background(0);
+
+                // title
+                fill(255);
+                text("Rainfall Piechart", width / 2, (width * 0.1f) / 2);
+
+                float startAngle = 0;
+
+                // pie chart
+                for (int i = 0; i < rainfall.length; i++)
+                {
+                    // arc
+                    float colour = map(i, 0, rainfall.length, 0, 255);
+                    float angle = map(rainfall[i], 0, sum, 0, TWO_PI);
+                    fill(colour, 255, 255);
+                    arc(width / 2, height / 2, mouseX * 2, mouseX * 2, startAngle, startAngle + angle, PIE);
+
+                    // text
+                    float theta = startAngle + (angle * 0.5f);
+                    float x = width / 2 + cos(theta) * (mouseX * 1.2f);
+                    float y = height / 2 + sin(theta) * (mouseX * 1.2f);
+                    fill(255);
+                    text(months[i], x, y);
+
+                    startAngle += angle;
+                }
+
 
                 break;
             }
