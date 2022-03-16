@@ -72,7 +72,7 @@ public class Main
     }
     public static void main(String[] args)
     {
-        colorfulLife();
+        life();
 
         // Tara Misty
         // Tara Tara
