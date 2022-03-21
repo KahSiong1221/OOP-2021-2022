@@ -80,7 +80,8 @@ public class Audio1 extends PApplet
         float cx = width / 2;
         float cy = height / 2;
 
-        switch (mode) {
+        switch (mode) 
+        {
 			case 0:
                 background(0);
                 for(int i = 0 ; i < ab.size() ; i ++)
@@ -92,65 +93,65 @@ public class Audio1 extends PApplet
                     line(i, halfH + f, i, halfH - f);                    
                 }
                 break;
-        case 1:
-            background(0);
-            for(int i = 0 ; i < ab.size() ; i ++)
+            case 1:
+                background(0);
+                for(int i = 0 ; i < ab.size() ; i ++)
+                {
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float c = map(i, 0, ab.size(), 0, 255);
+                    stroke(c, 255, 255);
+                    float f = lerpedBuffer[i] * halfH * 4.0f;
+                    line(i, halfH + f, halfH - f, i);                    
+                }
+                break;
+            case 2:
             {
-                //float c = map(ab.get(i), -1, 1, 0, 255);
-                float c = map(i, 0, ab.size(), 0, 255);
+                float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                background(0, 0, 0, 10);
+                stroke(c, 255, 255);	
+                float radius = map(smoothedAmplitude, 0, 0.1f, 50, 300);		
+                int points = (int)map(mouseX, 0, 255, 3, 10);
+                int sides = points * 2;
+                float px = cx;
+                float py = cy - radius; 
+                for(int i = 0 ; i <= sides ; i ++)
+                {
+                    float r = (i % 2 == 0) ? radius : radius / 2; 
+                    // float r = radius;
+                    float theta = map(i, 0, sides, 0, TWO_PI);
+                    float x = cx + sin(theta) * r;
+                    float y = cy - cos(theta) * r;
+                    
+                    //circle(x, y, 20);
+                    line(px, py, x, y);
+                    px = x;
+                    py = y;
+                }
+            }
+            case 3:
+                background(0);
+                strokeWeight(2);
+                noFill();
+                float r = map(smoothedAmplitude, 0, 0.5f, 100, 2000);
+                float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
                 stroke(c, 255, 255);
-                float f = lerpedBuffer[i] * halfH * 4.0f;
-                line(i, halfH + f, halfH - f, i);                    
-            }
-            break;
-        case 2:
-            {
-                    float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
-                    background(0, 0, 0, 10);
-                    stroke(c, 255, 255);	
-                    float radius = map(smoothedAmplitude, 0, 0.1f, 50, 300);		
-                    int points = (int)map(mouseX, 0, 255, 3, 10);
-                    int sides = points * 2;
-                    float px = cx;
-                    float py = cy - radius; 
-                    for(int i = 0 ; i <= sides ; i ++)
-                    {
-                        float r = (i % 2 == 0) ? radius : radius / 2; 
-                        // float r = radius;
-                        float theta = map(i, 0, sides, 0, TWO_PI);
-                        float x = cx + sin(theta) * r;
-                        float y = cy - cos(theta) * r;
-                        
-                        //circle(x, y, 20);
-                        line(px, py, x, y);
-                        px = x;
-                        py = y;
-                    }
-            }
-        case 3:
-            background(0);
-            strokeWeight(2);
-            noFill();
-            float r = map(smoothedAmplitude, 0, 0.5f, 100, 2000);
-            float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
-            stroke(c, 255, 255);
-            circle(cx, cy, r);
-        case 4:
-        
-            background(0);
-            strokeWeight(2);
-            for(int i = 0 ; i < ab.size() ; i +=10)
-            {
-                //float c = map(ab.get(i), -1, 1, 0, 255);
-                float cc = map(i, 0, ab.size(), 0, 255);
-                stroke(cc, 255, 255);
-                float f = lerpedBuffer[i] * halfH * 4.0f;
-                line(i, halfH + f, i, halfH - f);
-                fill(cc);
-                circle(i, halfH + f, 5);                    
-                circle(i, halfH - f, 5);                    
-            }
-            break;
+                circle(cx, cy, r);
+            case 4:
+            
+                background(0);
+                strokeWeight(2);
+                for(int i = 0 ; i < ab.size() ; i +=10)
+                {
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float cc = map(i, 0, ab.size(), 0, 255);
+                    stroke(cc, 255, 255);
+                    float f = lerpedBuffer[i] * halfH * 4.0f;
+                    line(i, halfH + f, i, halfH - f);
+                    fill(cc);
+                    circle(i, halfH + f, 5);                    
+                    circle(i, halfH - f, 5);                    
+                }
+                break;
 
         }
         
