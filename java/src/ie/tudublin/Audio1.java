@@ -188,6 +188,25 @@ public class Audio1 extends PApplet
                 
                 break;
             }
+            case 6:
+            {
+                background(0);
+                strokeWeight(2);
+
+                for (int i = 0; i < ab.size(); i += 10)
+                {
+                    float cc = map(i, 0, ab.size(), 0, 255);
+                    stroke(cc, 255, 255);
+
+					float angle = TWO_PI / (float)ab.size();
+                    float radius = map(lerpedBuffer[i], 0, 0.5f, 200, width * 3);
+					
+					float x2 = radius * sin(angle * i);
+					float y2 = radius * cos(angle * i);
+					line(width / 2, height / 2, width / 2 + x2, height / 2 + y2);
+                }
+                break;
+            }
             /* case (star)
                 float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
                 background(0, 0, 0, 10);
