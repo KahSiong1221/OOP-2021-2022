@@ -36,7 +36,7 @@ public class Audio1 extends PApplet
 
     public void settings()
     {
-        size(1024, 1000, P3D);
+        size(1024, 1000);
         //fullScreen(P3D, SPAN);
     }
 
@@ -66,9 +66,10 @@ public class Audio1 extends PApplet
         float average = 0;
         float sum = 0;
         off += 1;
+
         // Calculate sum and average of the samples
         // Also lerp each element of buffer;
-        for(int i = 0 ; i < ab.size() ; i ++)
+        for (int i = 0 ; i < ab.size() ; i++)
         {
             sum += abs(ab.get(i));
             lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
@@ -83,8 +84,10 @@ public class Audio1 extends PApplet
         switch (mode) 
         {
 			case 0:
+            {
                 background(0);
-                for(int i = 0 ; i < ab.size() ; i ++)
+
+                for (int i = 0; i < ab.size(); i++)
                 {
                     //float c = map(ab.get(i), -1, 1, 0, 255);
                     float c = map(i, 0, ab.size(), 0, 255);
@@ -92,18 +95,25 @@ public class Audio1 extends PApplet
                     float f = lerpedBuffer[i] * halfH * 4.0f;
                     line(i, halfH + f, i, halfH - f);                    
                 }
+
                 break;
+            }
             case 1:
+            {
                 background(0);
-                for(int i = 0 ; i < ab.size() ; i ++)
+
+                for (int i = 0; i < ab.size(); i++)
                 {
                     //float c = map(ab.get(i), -1, 1, 0, 255);
+
                     float c = map(i, 0, ab.size(), 0, 255);
                     stroke(c, 255, 255);
                     float f = lerpedBuffer[i] * halfH * 4.0f;
                     line(i, halfH + f, halfH - f, i);                    
                 }
+
                 break;
+            }
             case 2:
             {
                 float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
@@ -127,6 +137,7 @@ public class Audio1 extends PApplet
                     px = x;
                     py = y;
                 }
+                break;
             }
             case 3:
                 background(0);
@@ -136,6 +147,7 @@ public class Audio1 extends PApplet
                 float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
                 stroke(c, 255, 255);
                 circle(cx, cy, r);
+                break;
             case 4:
             
                 background(0);
