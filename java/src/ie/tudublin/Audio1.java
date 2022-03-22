@@ -86,6 +86,7 @@ public class Audio1 extends PApplet
 			case 0:
             {
                 background(0);
+                strokeWeight(1);
 
                 for (int i = 0; i < ab.size(); i++)
                 {
@@ -101,6 +102,7 @@ public class Audio1 extends PApplet
             case 1:
             {
                 background(0);
+                strokeWeight(1);
 
                 for (int i = 0; i < ab.size(); i++)
                 {
@@ -116,6 +118,77 @@ public class Audio1 extends PApplet
             }
             case 2:
             {
+                background(0);
+                strokeWeight(1);
+
+                for (int i = 0; i < ab.size(); i++)
+                {
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float c = map(i, 0, ab.size(), 0, 255);
+                    stroke(c, 255, 255);
+
+                    float f = lerpedBuffer[i] * height * 10.0f;
+                    // top
+                    line(i, 0, i, f);
+                    // down  
+                    line(i, height, i, height - f);
+                    // left
+                    line(0, i, f, i);
+                    // right
+                    line(width, i, width - f, i);            
+                }
+
+                break;
+            }
+            case 3:
+            {
+                background(0);
+                strokeWeight(3);
+                noFill();
+                float r = map(smoothedAmplitude, 0, 0.5f, 100, 2000);
+                float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                stroke(c, 255, 255);
+                circle(cx, cy, r);
+
+                break;
+            }
+            case 4:
+            {
+                background(0);
+                strokeWeight(3);
+                noFill();
+
+                float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                stroke(c, 255, 255);
+
+                float sideLength = map(smoothedAmplitude, 0, 0.5f, 100, 2000);
+                rectMode(CENTER);
+                square(width / 2, height / 2, sideLength);
+
+                break;
+            }
+            case 5:
+            {
+                background(0);
+                strokeWeight(2);
+
+                for (int i = 0; i < ab.size(); i += 10)
+                {
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float cc = map(i, 0, ab.size(), 0, 255);
+                    stroke(cc, 255, 255);
+
+                    float f = lerpedBuffer[i] * halfH * 4.0f;
+                    line(i, halfH + f, i, halfH - f);
+
+                    fill(cc);
+                    circle(i, halfH + f, 5);                    
+                    circle(i, halfH - f, 5);                    
+                }
+                
+                break;
+            }
+            /* case (star)
                 float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
                 background(0, 0, 0, 10);
                 stroke(c, 255, 255);	
@@ -138,33 +211,7 @@ public class Audio1 extends PApplet
                     py = y;
                 }
                 break;
-            }
-            case 3:
-                background(0);
-                strokeWeight(2);
-                noFill();
-                float r = map(smoothedAmplitude, 0, 0.5f, 100, 2000);
-                float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
-                stroke(c, 255, 255);
-                circle(cx, cy, r);
-                break;
-            case 4:
-            
-                background(0);
-                strokeWeight(2);
-                for(int i = 0 ; i < ab.size() ; i +=10)
-                {
-                    //float c = map(ab.get(i), -1, 1, 0, 255);
-                    float cc = map(i, 0, ab.size(), 0, 255);
-                    stroke(cc, 255, 255);
-                    float f = lerpedBuffer[i] * halfH * 4.0f;
-                    line(i, halfH + f, i, halfH - f);
-                    fill(cc);
-                    circle(i, halfH + f, 5);                    
-                    circle(i, halfH - f, 5);                    
-                }
-                break;
-
+            */
         }
         
 
