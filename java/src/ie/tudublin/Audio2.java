@@ -119,8 +119,6 @@ public class Audio2 extends PApplet
             line(i, 0, i, fft.getBand(i) * 10);
         }
 
-        int maxIndex = 0;
-
         for (int i = 0; i < fft.specSize(); i++)
         {
             if (fft.getBand(i) > fft.getBand(maxIndex))
@@ -128,8 +126,6 @@ public class Audio2 extends PApplet
                 maxIndex = i;
             }
         }
-
-        float freq = fft.indexToFreq(maxIndex);
 
         textSize(20);
         fill(255);
