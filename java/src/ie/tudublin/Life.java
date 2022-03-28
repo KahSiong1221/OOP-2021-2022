@@ -20,12 +20,15 @@ public class Life extends PApplet {
 	public void settings() {
 		size(1000, 1000);
 		board = new LifeBoard(200, this);
+<<<<<<< HEAD
 		//board.randomise();
 		println(board.countCellsAround(1, 1));
+=======
+		board.randomise();
+>>>>>>> 60f8867 (game of life)
 	}
 
 	public void setup() {
-		noStroke();
 		colorMode(RGB);
 	}
 	
