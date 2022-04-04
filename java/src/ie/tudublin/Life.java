@@ -13,7 +13,7 @@ public class Life extends PApplet {
 		int col = (int) map(mouseX, 0, width, 0, board.size);
 		int row = (int) map(mouseY, 0, width, 0, board.size);
 
-		board.setAlive(row, col, true);
+		// board.setAlive(row, col, true);
 	}
 
 
