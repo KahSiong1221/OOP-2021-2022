@@ -23,8 +23,8 @@ Resources
 - [Assignments](assignments.md)
 
 - Week 5 - Teams Submission
-- Week 11 Lab Test 20% 
-- Week 13 Assignment Submission - 30%
+- 27 April - Lab Test 20% 
+- 4th May Assignmemnt Submission - 30%
 - End of Year exam - 50%
 
 # Last years course
@@ -38,6 +38,105 @@ Resources
 - https://github.com/skooter500/OOP-2018-Lab-Test-2
 - https://github.com/skooter500/OOP_Labtest1_2017_Starter
 - https://github.com/skooter500/OOP-LabTest1-2016
+
+## Week 12 - Bullets and singing
+- [Recording of the class](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EfI61WVF57xBvOptHmYxUZABZCiSBcSoLBiAGuf49cnSug?e=NE7vJx)
+
+  Put your Roots Down
+
+  Put your roots down 
+
+  Put your feet on the ground 
+
+  Can you hear what she says 
+
+  Are you listening? X2
+
+  Sweet sound of the water,
+
+  as it moves across the stones
+
+  Same sound as the blood in your body, as it moves across your bones
+
+  Are you listening, ooh ooh x2
+
+
+## Week 11 - YASC Part 1
+- [Recording of the class](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/Edu2JUxUJnpNk0DJum_UHIoBNnXLW71f-De16xyCEu9L-w?e=orgOaw)
+
+- [Recording of the tutorial](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EdnREXh-iZVFmXzkZY34zNABey4G2mDiORbj42WohFMkFw?e=7WhKLI)
+
+A couple of solutions to [this codingbat exercise](https://codingbat.com/prob/p105771)
+
+My solution:
+
+```Java
+public int[] evenOdd(int[] nums) {
+  int swaps = 0;
+  do
+  {
+    swaps = 0;
+   for(int i = 0 ; i < nums.length -1 ; i ++)
+   {
+     if (nums[i] % 2 != 0 && nums[i+1] % 2 == 0)
+     {
+       int temp = nums[i];
+       nums[i] = nums[i + 1];
+       nums[i+1] = temp;
+       swaps ++;
+     }
+   }
+  }
+  while (swaps > 0);
+ return nums;
+}
+```
+
+Submitted by Ho Chung:
+
+```Java
+public int[] evenOdd(int[] nums) {
+  int temp[] = new int[nums.length];
+  int start = 0;
+  int end = nums.length - 1;
+  for (int i = 0; i < nums.length; i ++){
+    if (nums[i] % 2 == 0) {
+      temp[start] = nums[i];
+      start++;
+    }
+    else {
+      temp[end] = nums[i];
+      end--;
+    }
+  }
+  return temp;
+}
+```
+
+Submitted by Christina Vargka:
+
+```Java
+public int[] evenOdd(int[] nums) {
+int counter = 0;
+int[] evods = new int[nums.length];
+for(int i = 0; i < nums.length; i++){
+if(nums[i] % 2 == 0){
+evods[counter] = nums[i];
+counter++;
+}
+}
+for(int i = 0; i < nums.length; i++){
+if(nums[i] % 2 == 1){
+evods[counter] = nums[i];
+counter++;
+}
+}
+return evods;
+}
+```
+
+## Lab
+- Work on your assignments!
 
 ## Week 10 - Loading and visualising a dataset - Star Map example
 - [Recording of the class](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EcgrS0Sh8v1CgiN9-HHlXBkBs7LHTxG8L08S1HLac0QKfQ?e=9Vxemq)
